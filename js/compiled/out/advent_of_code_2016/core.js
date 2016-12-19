@@ -9,8 +9,8 @@ if(typeof advent_of_code_2016.core.app_state !== 'undefined'){
 advent_of_code_2016.core.app_state = cljs.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"displayed","displayed",-436192586),advent_of_code_2016.day1.display], null));
 }
 advent_of_code_2016.core.change_problem_BANG_ = (function advent_of_code_2016$core$change_problem_BANG_(dspl){
-return cljs.core.swap_BANG_.call(null,advent_of_code_2016.core.app_state,(function (p1__35235_SHARP_){
-return cljs.core.update.call(null,p1__35235_SHARP_,new cljs.core.Keyword(null,"displayed","displayed",-436192586),dspl);
+return cljs.core.swap_BANG_.call(null,advent_of_code_2016.core.app_state,(function (p1__26420_SHARP_){
+return cljs.core.update.call(null,p1__26420_SHARP_,new cljs.core.Keyword(null,"displayed","displayed",-436192586),dspl);
 }));
 });
 advent_of_code_2016.core.disp_manager = (function advent_of_code_2016$core$disp_manager(){
@@ -29,4 +29,4 @@ return advent_of_code_2016.core.render_BANG_.call(null);
 }));
 advent_of_code_2016.core.render_BANG_.call(null);
 
-//# sourceMappingURL=core.js.map?rel=1481924317403
+//# sourceMappingURL=core.js.map?rel=1482184876432
