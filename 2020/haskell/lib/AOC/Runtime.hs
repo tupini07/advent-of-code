@@ -2,19 +2,15 @@
 
 module AOC.Runtime (aocMain) where
 
-
-
 -- imports
 
-import           Control.Monad
-import           Data.Char
-import           Data.List
-import           System.Environment
-import           System.Exit
-import           System.FilePath.Posix
-import           Text.Printf
-
-
+import Control.Monad
+import Data.Char
+import Data.List
+import System.Environment
+import System.Exit
+import System.FilePath.Posix
+import Text.Printf
 
 -- helpers
 
@@ -23,9 +19,8 @@ printUsageAndDie cmd = die $ "usage: " ++ cmd ++ " path_to_input_dir"
 
 getInput :: Int -> String -> IO String
 getInput day dir = dropWhileEnd isSpace <$> readFile filename
-  where filename = dir </> printf "%02d" day ++ ".in"
-
-
+  where
+    filename = dir </> printf "%02d" day ++ ".in"
 
 -- main
 

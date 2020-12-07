@@ -19,7 +19,6 @@ import           AOC.Misc
 parseWith :: Parser a -> String -> a
 parseWith = either (error . show) id ... flip parse ""
 
-parseLinesWith :: Parser a -> String -> [a]
 parseLinesWith p s = parseWith p <$> lines s
 
 

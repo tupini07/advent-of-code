@@ -54,14 +54,14 @@ _exe: &exe
   dependencies: aoc
 
 executables:
-  animation_test: {
-    <<: *exe,
-    main: src/AnimationTest.hs
-  }
-  pf_test: {
-    <<: *exe,
-    main: src/PathFindingTest.hs
-  }
+  # animation_test: {
+  #   <<: *exe,
+  #   main: src/AnimationTest.hs
+  # }
+  # pf_test: {
+  #   <<: *exe,
+  #   main: src/PathFindingTest.hs
+  # }
 
   day01: {<<: *exe, main: src/Day01.hs}
   # day02: {<<: *exe, main: src/Day02.hs}

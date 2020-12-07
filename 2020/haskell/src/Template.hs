@@ -33,16 +33,27 @@ part2 = undefined
 
 -- main
 
+
+printPart num f t r = do
+  putStrLn $ "# Part " <> (show num)
+  putStrLn "> Test input:"
+  print $ f t
+
+  putStrLn "> Real input:"
+  print $ f r
+
+  putStrLn ""
+
 main :: IO ()
 main = aocMain 00 $ \rawData -> do
   let testInput = parseInput example
       realInput = parseInput rawData
-  putStrLn "# Part 1"
-  print $ part1 testInput
-  print $ part1 realInput
-  putStrLn "# Part 2"
-  print $ part2 testInput
-  print $ part2 realInput
+
+  putStrLn ""
+  printPart 1 part1 testInput realInput
+  printPart 2 part2 testInput realInput
+  putStrLn ""
+
 
 example :: String
 example = ""
