@@ -1,69 +1,59 @@
-{-# LANGUAGE RecordWildCards #-}
-
 -- import
 
+import           Control.Monad
 import           Data.Function    (on)
 import           Data.List
 import           Data.Maybe
 import           Text.Parsec
 import           Text.Parsec.Char
 
-import           AOC              as AOC
+import           AOC
 
 
 
 -- input
 
-type Input = [Password]
-
-data Password = PW { minAmount :: Int
-                   , maxAmount :: Int
-                   , requiredC :: Char
-                   , password  :: String
-                   } deriving Show
+type Input = String
 
 parseInput :: String -> Input
 parseInput = parseLinesWith line
-  where line = do
-          minA <- intLiteral
-          char '-'
-          maxA <- intLiteral
-          req  <- lower
-          symbol ":"
-          pw   <- many anyChar
-          pure $ PW minA maxA req pw
+  where line = undefined
 
 
 
 -- solution
 
-part1 :: Input -> Int
-part1 = length . filter isValid
-  where isValid PW{..} =
-          let occurences = AOC.count requiredC password
-          in  minAmount <= occurences && occurences <= maxAmount
+part1 :: Input -> String
+part1 = undefined
 
-part2 :: Input -> Int
-part2 = length . filter isValid
-  where isValid PW{..} =
-          let firstIsChar  = requiredC == (password !! (minAmount-1))
-              secondIsChar = requiredC == (password !! (maxAmount-1))
-          in  firstIsChar /= secondIsChar
+part2 :: Input -> String
+part2 = undefined
 
 
 
 -- main
 
+
+printPart num f t r = do
+  putStrLn $ "# Part " <> show num
+  putStrLn "> Test input:"
+  print $ f t
+
+  putStrLn "> Real input:"
+  print $ f r
+
+  putStrLn ""
+
 main :: IO ()
-main = aocMain 2 $ \rawData -> do
+main = aocMain 00 $ \rawData -> do
   let testInput = parseInput example
       realInput = parseInput rawData
-  putStrLn "# Given example"
-  print $ part1 testInput
-  print $ part2 testInput
-  putStrLn "# Real input"
-  print $ part1 realInput
-  print $ part2 realInput
+
+  putStrLn ""
+  printPart 1 part1 testInput realInput
+  printPart 2 part2 testInput realInput
+  putStrLn ""
+
 
 example :: String
-example = "1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc"
+example = ""

@@ -35,7 +35,7 @@ part2 = undefined
 
 
 printPart num f t r = do
-  putStrLn $ "# Part " <> (show num)
+  putStrLn $ "# Part " <> show num
   putStrLn "> Test input:"
   print $ f t
 
