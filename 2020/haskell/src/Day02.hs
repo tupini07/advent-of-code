@@ -1,5 +1,7 @@
--- import
+{-# LANGUAGE RecordWildCards #-}
 
+-- import
+import           AOC
 import           Control.Monad
 import           Data.Function    (on)
 import           Data.List
@@ -7,32 +9,42 @@ import           Data.Maybe
 import           Text.Parsec
 import           Text.Parsec.Char
 
-import           AOC
-
-
-
 -- input
 
-type Input = String
+type Input = [PW]
+
+data PW = PW
+  { lowerLimit   :: Int,
+    upperLimit   :: Int,
+    requiredChar :: Char,
+    pass         :: [Char]
+  }
+  deriving (Show)
 
 parseInput :: String -> Input
-parseInput = parseLinesWith line
-  where line = undefined
+parseInput = parseLinesWith $ do
+  mmin <- intLiteral
+  char '-'
+  mmax <- intLiteral
+  req <- lower
+  symbol ":"
+  pss <- many anyChar
 
-
+  return $ PW mmin mmax req pss
 
 -- solution
+isPWValid :: PW -> Bool
+isPWValid PW{..} = reqOccrs >= lowerLimit && reqOccrs <= upperLimit
+  where
+    reqOccrs = length $ filter (== requiredChar) pass
 
-part1 :: Input -> String
-part1 = undefined
+part1 :: Input -> Int
+part1 = length . filter isPWValid
 
-part2 :: Input -> String
+part2 :: Input -> Int
 part2 = undefined
 
-
-
 -- main
-
 
 printPart num f t r = do
   putStrLn $ "# Part " <> show num
@@ -45,7 +57,7 @@ printPart num f t r = do
   putStrLn ""
 
 main :: IO ()
-main = aocMain 00 $ \rawData -> do
+main = aocMain 2 $ \rawData -> do
   let testInput = parseInput example
       realInput = parseInput rawData
 
@@ -54,6 +66,5 @@ main = aocMain 00 $ \rawData -> do
   printPart 2 part2 testInput realInput
   putStrLn ""
 
-
 example :: String
-example = ""
+example = "1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc"
