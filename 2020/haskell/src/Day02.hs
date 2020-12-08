@@ -34,7 +34,7 @@ parseInput = parseLinesWith $ do
 
 -- solution
 isPWValid :: PW -> Bool
-isPWValid PW{..} = reqOccrs >= lowerLimit && reqOccrs <= upperLimit
+isPWValid PW {..} = reqOccrs >= lowerLimit && reqOccrs <= upperLimit
   where
     reqOccrs = length $ filter (== requiredChar) pass
 
@@ -42,7 +42,12 @@ part1 :: Input -> Int
 part1 = length . filter isPWValid
 
 part2 :: Input -> Int
-part2 = undefined
+part2 = length . filter isCorrect
+  where
+    isCorrect PW {..} =
+      let isAtLower = pass !! (lowerLimit - 1) == requiredChar
+          isAtupper = pass !! (upperLimit - 1) == requiredChar
+       in isAtLower /= isAtupper
 
 -- main
 
