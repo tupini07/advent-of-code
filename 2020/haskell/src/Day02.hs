@@ -52,24 +52,15 @@ part2 = length . filter isCorrect
 
 -- main
 
-printPart num f t r = do
-  putStrLn $ "# Part " <> show num
-  putStrLn "> Test input:"
-  print $ f t
-
-  putStrLn "> Real input:"
-  print $ f r
-
-  putStrLn ""
-
 main :: IO ()
 main = aocMain 2 $ \rawData -> do
   let testInput = parseInput example
       realInput = parseInput rawData
+      partPrinter = printAocPart testInput realInput
 
   putStrLn ""
-  printPart 1 part1 testInput realInput
-  printPart 2 part2 testInput realInput
+  partPrinter 1 part1 "2"
+  partPrinter 2 part2 "1"
   putStrLn ""
 
 example :: String
