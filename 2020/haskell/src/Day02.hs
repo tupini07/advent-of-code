@@ -45,8 +45,9 @@ part2 :: Input -> Int
 part2 = length . filter isCorrect
   where
     isCorrect PW {..} =
-      let isAtLower = pass !! (lowerLimit - 1) == requiredChar
-          isAtupper = pass !! (upperLimit - 1) == requiredChar
+      let isAtLower = isCharAtLimit lowerLimit
+          isAtupper = isCharAtLimit upperLimit
+          isCharAtLimit limit = pass !! (limit - 1) == requiredChar
        in isAtLower /= isAtupper
 
 -- main
