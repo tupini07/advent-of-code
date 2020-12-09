@@ -4,48 +4,30 @@
   "version": "2.0.0",
   "presentation": {
     "reveal": "always",
-    "panel": "new"
+    "panel": "new",
   },
   "tasks": [
     {
-      "label": "run",
+      "label": "Run!",
+      "detail": "Build and run the project passing correct args",
       "group": "build",
       "type": "shell",
       "command": "stack run -- ../input 2"
     },
+
     {
-      // F7
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "label": "stack build",
+      "label": "Perform HLint",
+      "detail": "Lint the project",
       "type": "shell",
-      "command": "stack build"
+      "command": "hlint app src"
     },
     {
       // F6
-      "group": "build",
+      "label": "Start watcher",
+      "detail": "Compiles the project every time there is a file change",
       "type": "shell",
-      "label": "stack clean & build",
-      "command": "stack clean && stack build"
-    },
-    {
-      // F8
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      "type": "shell",
-      "label": "stack test",
-      "command": "stack test"
-    },
-    {
-      // F6
-      "isBackground": true,
-      "type": "shell",
-      "label": "stack watch",
-      "command": "stack build --test --no-run-tests --file-watch"
+      "command": "stack build --test --no-run-tests --file-watch",
+      "isBackground": true
     }
   ]
 }
