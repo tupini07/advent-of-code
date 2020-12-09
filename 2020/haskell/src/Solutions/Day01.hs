@@ -2,6 +2,7 @@ module Solutions.Day01 where
 
 -- import
 
+import AOC
 import Control.Monad
 import Data.List
 
@@ -32,24 +33,15 @@ part2 input = head $ do
 
 -- main
 
-printPart num f t r = do
-  putStrLn $ "# Part " <> show num
-  putStrLn "> Test input:"
-  print $ f t
-
-  putStrLn "> Real input:"
-  print $ f r
-
-  putStrLn ""
-
 main :: String -> IO ()
 main rawData = do
   let testInput = parseInput example
       realInput = parseInput rawData
+      partPrinter = printAocPart testInput realInput
 
   putStrLn ""
-  printPart 1 part1 testInput realInput
-  printPart 2 part2 testInput realInput
+  partPrinter 1 part1 "514579"
+  partPrinter 2 part2 "241861950"
   putStrLn ""
 
 example :: String
