@@ -1,16 +1,13 @@
 -- import
 module Solutions.Template where
 
-import           Control.Monad
-import           Data.Function    (on)
-import           Data.List
-import           Data.Maybe
-import           Text.Parsec
-import           Text.Parsec.Char
-
-import           AOC
-
-
+import AOC
+import Control.Monad
+import Data.Function (on)
+import Data.List
+import Data.Maybe
+import Text.Parsec
+import Text.Parsec.Char
 
 -- input
 
@@ -18,9 +15,8 @@ type Input = String
 
 parseInput :: String -> Input
 parseInput = parseLinesWith line
-  where line = undefined
-
-
+  where
+    line = undefined
 
 -- solution
 
@@ -30,12 +26,10 @@ part1 = undefined
 part2 :: Input -> String
 part2 = undefined
 
-
-
 -- main
 
-main :: IO ()
-main = aocMain 00 $ \rawData -> do
+main :: String -> IO ()
+main rawData = do
   let testInput = parseInput example
       realInput = parseInput rawData
       partPrinter = printAocPart testInput realInput
