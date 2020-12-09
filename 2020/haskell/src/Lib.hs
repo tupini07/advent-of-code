@@ -1,18 +1,18 @@
 module Lib
-  ( runStep,
+  ( runDay,
   )
 where
 
 import qualified Solutions.Day01 as D1
 import qualified Solutions.Day02 as D2
 
-runStep ::
+runDay ::
   -- | number of step
   Int ->
   -- | raw input data
   String ->
   IO ()
-runStep stepNumber rawData = f rawData
+runDay stepNumber = f
   where
     f = case stepNumber of
       1 -> D1.main
