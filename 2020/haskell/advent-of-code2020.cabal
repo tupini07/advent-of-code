@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           advent-of-code
+name:           advent-of-code2020
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/haskell#readme>
 homepage:       https://github.com/tupini07/advent-of-code#readme
@@ -48,7 +48,7 @@ library
       Solutions.Day05
       Solutions.Template
   other-modules:
-      Paths_advent_of_code
+      Paths_advent_of_code2020
   hs-source-dirs:
       src
   ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults
@@ -86,17 +86,17 @@ library
     , vector
   default-language: Haskell2010
 
-executable advent-of-code-exe
+executable advent-of-code2020-exe
   main-is: Main.hs
   other-modules:
-      Paths_advent_of_code
+      Paths_advent_of_code2020
   hs-source-dirs:
       app
   ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults -O2 -threaded -rtsopts -with-rtsopts=-N4 -fno-warn-missing-signatures -fno-warn-unused-top-binds -fno-warn-unused-do-bind -fno-warn-unused-imports
   build-depends:
       MissingH
     , QuickCheck
-    , advent-of-code
+    , advent-of-code2020
     , array
     , base >=4.7 && <5
     , base16-bytestring
@@ -128,18 +128,18 @@ executable advent-of-code-exe
     , vector
   default-language: Haskell2010
 
-test-suite advent-of-code-test
+test-suite advent-of-code2020-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_advent_of_code
+      Paths_advent_of_code2020
   hs-source-dirs:
       test
   ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       MissingH
     , QuickCheck
-    , advent-of-code
+    , advent-of-code2020
     , array
     , base >=4.7 && <5
     , base16-bytestring
