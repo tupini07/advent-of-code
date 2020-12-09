@@ -2,13 +2,8 @@ module Solutions.Day01 where
 
 -- import
 
-import AOC
 import Control.Monad
-import Data.Function (on)
 import Data.List
-import Data.Maybe
-import Text.Parsec
-import Text.Parsec.Char
 
 -- input
 
@@ -47,8 +42,8 @@ printPart num f t r = do
 
   putStrLn ""
 
-main :: IO ()
-main = aocMain 01 $ \rawData -> do
+main :: String -> IO ()
+main rawData = do
   let testInput = parseInput example
       realInput = parseInput rawData
 

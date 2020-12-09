@@ -27,7 +27,7 @@ getInput day dir = dropWhileEnd isSpace <$> readFile filename
 aocMain :: Int -> (String -> IO ()) -> IO ()
 aocMain day body = do
   args <- getArgs
-  when (length args /= 1) $ getProgName >>= printUsageAndDie
+  when (length args < 2) $ getProgName >>= printUsageAndDie
   putStrLn $ printf "### Day %02d ###" day
   getInput day (head args) >>= body
 

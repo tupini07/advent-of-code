@@ -1,16 +1,11 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module Solutions.Day02 where
+module Solutions.Day02 (main) where
 
 -- import
 
 import AOC
-import Control.Monad
-import Data.Function (on)
-import Data.List
-import Data.Maybe
 import Text.Parsec
-import Text.Parsec.Char
 
 -- input
 
@@ -27,10 +22,10 @@ data PW = PW
 parseInput :: String -> Input
 parseInput = parseLinesWith $ do
   mmin <- intLiteral
-  char '-'
+  _ <- char '-'
   mmax <- intLiteral
   req <- lower
-  symbol ":"
+  _ <- symbol ":"
   pss <- many anyChar
 
   return $ PW mmin mmax req pss
@@ -55,8 +50,8 @@ part2 = length . filter isCorrect
 
 -- main
 
-main :: IO ()
-main = aocMain 2 $ \rawData -> do
+main :: String -> IO ()
+main rawData = do
   let testInput = parseInput example
       realInput = parseInput rawData
       partPrinter = printAocPart testInput realInput
