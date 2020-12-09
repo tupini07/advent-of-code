@@ -1,7 +1,0 @@
-help:
-  just --list
-
-run:
-  cd {{justfile_directory()}}
-  hlint lib src || true
-  ./bin/run day02
