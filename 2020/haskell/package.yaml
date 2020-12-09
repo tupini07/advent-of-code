@@ -1,4 +1,23 @@
-name: aoc
+name: advent-of-code
+version: 0.1.0.0
+github: "tupini07/advent-of-code"
+license: MIT
+author: "Andrea Tupini"
+maintainer: "tupini07@gmail.com"
+copyright: "2020 Andrea Tupini"
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/haskell#readme>
 
 ghc-options:
   - -Wall
@@ -38,33 +57,29 @@ dependencies:
   - vector
 
 library:
-  source-dirs: lib
-
-_exe: &exe
-  ghc-options:
-    - -O2
-    - -threaded -rtsopts -with-rtsopts=-N4
-    - -fno-warn-missing-signatures
-    - -fno-warn-unused-top-binds
-    - -fno-warn-unused-do-bind
-    - -fno-warn-unused-imports
-  source-dirs:
-    - .
-    # - src/common
-  dependencies: aoc
+  source-dirs: src
 
 executables:
-  # animation_test: {
-  #   <<: *exe,
-  #   main: src/AnimationTest.hs
-  # }
-  # pf_test: {
-  #   <<: *exe,
-  #   main: src/PathFindingTest.hs
-  # }
+  advent-of-code-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -O2
+      - -threaded -rtsopts -with-rtsopts=-N4
+      - -fno-warn-missing-signatures
+      - -fno-warn-unused-top-binds
+      - -fno-warn-unused-do-bind
+      - -fno-warn-unused-imports
+    dependencies:
+      - advent-of-code
 
-  # day01: {<<: *exe, main: src/Day01.hs}
-  day02: {<<: *exe, main: src/Day02.hs}
-  # day03: {<<: *exe, main: src/Day03.hs}
-  # day04: {<<: *exe, main: src/Day04.hs}
-  # day05: {<<: *exe, main: src/Day05.hs}
+tests:
+  advent-of-code-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - advent-of-code

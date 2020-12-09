@@ -1,0 +1,172 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           advent-of-code
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/haskell#readme>
+homepage:       https://github.com/tupini07/advent-of-code#readme
+bug-reports:    https://github.com/tupini07/advent-of-code/issues
+author:         Andrea Tupini
+maintainer:     tupini07@gmail.com
+copyright:      2020 Andrea Tupini
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/tupini07/advent-of-code
+
+library
+  exposed-modules:
+      AOC
+      AOC.Cycle
+      AOC.Debug
+      AOC.Debug.Animate
+      AOC.Debug.Color
+      AOC.Debug.Graph
+      AOC.List
+      AOC.Map.Flat
+      AOC.Map.Sparse
+      AOC.MD5
+      AOC.Misc
+      AOC.Parsing
+      AOC.PathFinding
+      AOC.Point
+      AOC.Runtime
+      Lib
+      Solutions.Day01
+      Solutions.Day02
+      Solutions.Day03
+      Solutions.Day04
+      Solutions.Day05
+      Solutions.Template
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults
+  build-depends:
+      MissingH
+    , QuickCheck
+    , array
+    , base >=4.7 && <5
+    , base16-bytestring
+    , bytestring
+    , containers
+    , cryptohash-md5
+    , data-has
+    , extra
+    , filepath
+    , hashable
+    , lens
+    , monad-loops
+    , monad-validate
+    , mtl
+    , parallel
+    , parsec
+    , pqueue
+    , primitive
+    , random
+    , safe
+    , split
+    , string-qq
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , time
+    , transformers-base
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable advent-of-code-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults -O2 -threaded -rtsopts -with-rtsopts=-N4 -fno-warn-missing-signatures -fno-warn-unused-top-binds -fno-warn-unused-do-bind -fno-warn-unused-imports
+  build-depends:
+      MissingH
+    , QuickCheck
+    , advent-of-code
+    , array
+    , base >=4.7 && <5
+    , base16-bytestring
+    , bytestring
+    , containers
+    , cryptohash-md5
+    , data-has
+    , extra
+    , filepath
+    , hashable
+    , lens
+    , monad-loops
+    , monad-validate
+    , mtl
+    , parallel
+    , parsec
+    , pqueue
+    , primitive
+    , random
+    , safe
+    , split
+    , string-qq
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , time
+    , transformers-base
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+test-suite advent-of-code-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , QuickCheck
+    , advent-of-code
+    , array
+    , base >=4.7 && <5
+    , base16-bytestring
+    , bytestring
+    , containers
+    , cryptohash-md5
+    , data-has
+    , extra
+    , filepath
+    , hashable
+    , lens
+    , monad-loops
+    , monad-validate
+    , mtl
+    , parallel
+    , parsec
+    , pqueue
+    , primitive
+    , random
+    , safe
+    , split
+    , string-qq
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , time
+    , transformers-base
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
