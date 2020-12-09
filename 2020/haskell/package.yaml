@@ -1,4 +1,4 @@
-name: advent-of-code2020
+name: aoc2020
 version: 0.1.0.0
 github: "tupini07/advent-of-code"
 license: MIT
@@ -60,7 +60,7 @@ library:
   source-dirs: src
 
 executables:
-  advent-of-code2020-exe:
+  aoc2020-exe:
     main: Main.hs
     source-dirs: app
     ghc-options:
@@ -71,10 +71,10 @@ executables:
       - -fno-warn-unused-do-bind
       - -fno-warn-unused-imports
     dependencies:
-      - advent-of-code2020
+      - aoc2020
 
 tests:
-  advent-of-code2020-test:
+  aoc2020-test:
     main: Spec.hs
     source-dirs: test
     ghc-options:
@@ -82,4 +82,4 @@ tests:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - advent-of-code2020
+      - aoc2020
