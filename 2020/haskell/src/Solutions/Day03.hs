@@ -1,13 +1,8 @@
 module Solutions.Day03 where
 
 import           AOC
-import           Control.Monad
-import           Data.Function    (on)
 import           Data.List
-import           Data.Maybe
-import qualified Data.Set         as S
-import           Text.Parsec
-import           Text.Parsec.Char
+import qualified Data.Set  as S
 
 -- input
 
@@ -17,21 +12,25 @@ parseInput :: String -> Input
 parseInput i = (colLen, sets)
   where
     lns = lines i
-    sets = map (S.fromList . findIndices (`elem` "#")) $ lns
+    sets = map (S.fromList . findIndices (`elem` "#")) lns
     colLen = length . head $ lns
 -- solution
 
-part1 :: Input -> Int
-part1 (colLen, inpt) = countTrue $ map isTreePos (generatePath 0 0)
+type Slope = (Int, Int)
+numTreesInSlope :: Input -> Slope -> Int
+numTreesInSlope (colLen, inpt) (sR, sC) = countTrue $ map isTreePos (generatePath 0 0)
   where
     mmx = length inpt
     isTreePos (r, c) = S.member c (inpt !! r)
     generatePath r c = (r,c) : if r >= (mmx - 1)
                                   then []
-                                  else generatePath (r+1) ((c+3) `mod` colLen)
+                                  else generatePath (r+sR) ((c+sC) `mod` colLen)
 
-part2 :: Input -> String
-part2 = undefined
+part1 :: Input -> Int
+part1 inpt = numTreesInSlope inpt (1,3)
+
+part2 :: Input -> Int
+part2 inpt = product $ map (numTreesInSlope inpt) [(1,1), (1,3), (1,5), (1,7), (2,1)]
 
 -- main
 
@@ -41,9 +40,25 @@ main rawData = do
       realInput = parseInput rawData
       partPrinter = printAocPart testInput realInput
 
+      checkPath tpl should = putStrLn $ do
+        let tplS = show tpl
+            n = numTreesInSlope testInput tpl
+            nStr = show n
+            isEqual = show $ nStr == should
+        tplS <> " -> " <> nStr <> " (" <> isEqual <> ")"
+
   putStrLn ""
   partPrinter 1 part1 "7"
-  -- partPrinter 2 part2 "1"
+
+  putStrLn "# Checking path tuples for part 2"
+  checkPath (1,1) "2"
+  checkPath (1,3) "7"
+  checkPath (1,5) "3"
+  checkPath (1,7) "4"
+  checkPath (2,1) "2"
+  putStrLn ""
+
+  partPrinter 2 part2 "336"
   putStrLn ""
 
 example :: String
