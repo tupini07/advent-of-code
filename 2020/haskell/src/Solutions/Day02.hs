@@ -36,6 +36,7 @@ isPWValid PW {..} = reqOccrs >= lowerLimit && reqOccrs <= upperLimit
   where
     reqOccrs = length $ filter (== requiredChar) pass
 
+
 part1 :: Input -> Int
 part1 = length . filter isPWValid
 

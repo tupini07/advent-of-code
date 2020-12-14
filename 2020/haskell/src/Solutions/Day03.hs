@@ -1,58 +1,47 @@
--- import
 module Solutions.Day03 where
 
-import           Control.Monad
-import           Data.Function   (on)
-import qualified Data.IntSet     as S
-import           Data.List
-import           Data.List.Split (chunksOf)
-import           Data.Maybe
-
 import           AOC
-
-
+import           Control.Monad
+import           Data.Function    (on)
+import           Data.List
+import           Data.Maybe
+import qualified Data.Set         as S
+import           Text.Parsec
+import           Text.Parsec.Char
 
 -- input
 
-type Input = (Int, [S.IntSet])
+type Input = [S.Set Int]
 
 parseInput :: String -> Input
-parseInput input = (length $ head $ rows, mkSet <$> rows)
-  where rows  = lines input
-        mkSet = S.fromList . elemIndices '#'
-
-
+parseInput = map (S.fromList . findIndices (`elem` "#")) . lines
 
 -- solution
 
 part1 :: Input -> Int
-part1 (n, sets) = countTrue [S.member (column `mod` n) set | (column, set) <- zip [0,3..] sets]
+part1 inpt = countTrue $ map isTreePos (generatePath 0 0)
+  where
+    mmx = length inpt
+    generatePath r c = (r,c) : if r >= (mmx - 1)
+                                  then []
+                                  else generatePath (r+1) ((c+3) `mod` 11)
+    isTreePos (r, c) = S.member c (inpt !! r)
 
-part2 :: Input -> Int
-part2 (n, sets) = product [ trees 1 1
-                          , trees 1 3
-                          , trees 1 5
-                          , trees 1 7
-                          , trees 2 1
-                          ]
-   where trees yOffset xOffset = countTrue $ do
-           (column, set:_) <- zip [0,xOffset..] $ chunksOf yOffset sets
-           pure $ S.member (column `mod` n) set
-
-
+part2 :: Input -> String
+part2 = undefined
 
 -- main
 
-main :: IO ()
-main = aocMain 3 $ \rawData -> do
+main :: String -> IO ()
+main rawData = do
   let testInput = parseInput example
       realInput = parseInput rawData
-  putStrLn "# Given example"
-  print $ part1 testInput
-  print $ part2 testInput
-  putStrLn "# Real input"
-  print $ part1 realInput
-  print $ part2 realInput
+      partPrinter = printAocPart testInput realInput
+
+  putStrLn ""
+  partPrinter 1 part1 "7"
+  -- partPrinter 2 part2 "1"
+  putStrLn ""
 
 example :: String
 example = "..##.......\n#...#...#..\n.#....#..#.\n..#.#...#.#\n.#...##..#.\n..#.##.....\n.#.#.#....#\n.#........#\n#.##...#...\n#...##....#\n.#..#...#.#"
