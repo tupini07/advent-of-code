@@ -19,44 +19,46 @@ parseKeyValue :: Parser (Text, Text)
 parseKeyValue = do
   key <- P.many alphaNumChar
   _ <- char ':'
-  value <- P.many alphaNumChar
+  value <- P.many (alphaNumChar <|> char '#')
   return $ (T.pack key, T.pack value)
-
-spacesOrNewline :: Parser String
-spacesOrNewline = do P.many (char ' ' <|> char '\n')
 
 pPassport :: Parser [(Text, Text)]
 pPassport = do parseKeyValue `P.sepBy` spacesOrNewline
+  where
+    spacesOrNewline = do P.many (char ' ' <|> char '\n')
 
-getPassports :: Text -> Passport
-getPassports inpt = M.fromList parsed
+getPassport :: Text -> Passport
+getPassport inpt = M.fromList parsed
   where
     parsed = case parse pPassport "" inpt of
       Left _ -> []
       Right r -> r
 
 -- expectedFields :: [[Char]]
--- expectedFields =
---   [ "byr",
---     "iyr",
---     "eyr",
---     "hgt",
---     "hcl",
---     "ecl",
---     "pid"
---     -- "cid" -- we can ignore this field
---   ]
+expectedFields :: [Text]
+expectedFields =
+  [ "byr",
+    "iyr",
+    "eyr",
+    "hgt",
+    "hcl",
+    "ecl",
+    "pid"
+    -- "cid" -- we can ignore this field
+  ]
 
-parseInput :: String -> Input
-parseInput = parseLinesWith line
+parseInput :: Text -> Input
+parseInput inpt = map getPassport splitted
   where
-    line = undefined
+    splitted = T.splitOn "\n\n" inpt
 
 -- solution
 
 -- | How many passports are valid?
 part1 :: Input -> Int
-part1 = undefined
+part1 psprts = countTrue $ map isPassportCorrect psprts
+  where
+    isPassportCorrect ppt = all (`M.member` ppt) expectedFields
 
 part2 :: Input -> String
 part2 = undefined
@@ -65,8 +67,9 @@ part2 = undefined
 
 main :: String -> IO ()
 main rawData = do
-  let testInput = parseInput example
-      realInput = parseInput rawData
+  let rawText = T.pack rawData
+      testInput = parseInput example
+      realInput = parseInput rawText
       partPrinter = printAocPart testInput realInput
 
   putStrLn ""
@@ -74,5 +77,5 @@ main rawData = do
   -- partPrinter 2 part2 "1"
   putStrLn ""
 
-example :: String
+example :: Text
 example = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm\n\niyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\nhcl:#cfa07d byr:1929\n\nhcl:#ae17e1 iyr:2013\neyr:2024\necl:brn pid:760753108 byr:1931\nhgt:179cm\n\nhcl:#cfa07d eyr:2025 pid:166559648\niyr:2011 ecl:brn hgt:59in"
