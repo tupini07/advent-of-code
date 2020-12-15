@@ -19,10 +19,15 @@ extra-source-files:
 # common to point users to the README.md file.
 description: Please see the README on GitHub at <https://github.com/githubuser/haskell#readme>
 
+default-extensions:
+- OverloadedStrings
+- RecordWildCards
+
 ghc-options:
   - -Wall
   - -fwarn-tabs
   - -fno-warn-type-defaults
+
 dependencies:
   - base >= 4.7 && < 5
   - MissingH
@@ -37,6 +42,7 @@ dependencies:
   - filepath
   - hashable
   - lens
+  - megaparsec
   - monad-loops
   - monad-validate
   - mtl
@@ -52,6 +58,7 @@ dependencies:
   - tasty-hunit
   - tasty-quickcheck
   - time
+  - text
   - transformers-base
   - unordered-containers
   - vector

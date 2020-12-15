@@ -27,10 +27,6 @@ library
   exposed-modules:
       AOC
       AOC.Cycle
-      AOC.Debug
-      AOC.Debug.Animate
-      AOC.Debug.Color
-      AOC.Debug.Graph
       AOC.List
       AOC.Map.Flat
       AOC.Map.Sparse
@@ -44,14 +40,15 @@ library
       Solutions.Day01
       Solutions.Day02
       Solutions.Day03
-      Solutions.Day03_ok
       Solutions.Day04
+      Solutions.Day04_ok
       Solutions.Day05
       Solutions.Template
   other-modules:
       Paths_aoc2020
   hs-source-dirs:
       src
+  default-extensions: OverloadedStrings RecordWildCards
   ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults
   build-depends:
       MissingH
@@ -67,6 +64,7 @@ library
     , filepath
     , hashable
     , lens
+    , megaparsec
     , monad-loops
     , monad-validate
     , mtl
@@ -81,6 +79,7 @@ library
     , tasty
     , tasty-hunit
     , tasty-quickcheck
+    , text
     , time
     , transformers-base
     , unordered-containers
@@ -93,6 +92,7 @@ executable aoc2020-exe
       Paths_aoc2020
   hs-source-dirs:
       app
+  default-extensions: OverloadedStrings RecordWildCards
   ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults -O2 -threaded -rtsopts -with-rtsopts=-N4 -fno-warn-missing-signatures -fno-warn-unused-top-binds -fno-warn-unused-do-bind -fno-warn-unused-imports
   build-depends:
       MissingH
@@ -109,6 +109,7 @@ executable aoc2020-exe
     , filepath
     , hashable
     , lens
+    , megaparsec
     , monad-loops
     , monad-validate
     , mtl
@@ -123,6 +124,7 @@ executable aoc2020-exe
     , tasty
     , tasty-hunit
     , tasty-quickcheck
+    , text
     , time
     , transformers-base
     , unordered-containers
@@ -136,6 +138,7 @@ test-suite aoc2020-test
       Paths_aoc2020
   hs-source-dirs:
       test
+  default-extensions: OverloadedStrings RecordWildCards
   ghc-options: -Wall -fwarn-tabs -fno-warn-type-defaults -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       MissingH
@@ -152,6 +155,7 @@ test-suite aoc2020-test
     , filepath
     , hashable
     , lens
+    , megaparsec
     , monad-loops
     , monad-validate
     , mtl
@@ -166,6 +170,7 @@ test-suite aoc2020-test
     , tasty
     , tasty-hunit
     , tasty-quickcheck
+    , text
     , time
     , transformers-base
     , unordered-containers

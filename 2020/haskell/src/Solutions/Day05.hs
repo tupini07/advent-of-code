@@ -4,29 +4,27 @@ module Solutions.Day05 where
 
 -- import
 
-import           Control.Monad
-import           Data.Function    (on)
-import qualified Data.IntSet      as S
-import           Data.List
-import           Data.Maybe
-import           Numeric
-import           Text.Parsec
-import           Text.Parsec.Char
-
-import           AOC
-
-
+import AOC
+import Control.Monad
+import Data.Foldable
+import Data.Function (on)
+import qualified Data.IntSet as S
+import Data.List
+import Data.Maybe
+import Numeric
+import Text.Parsec
+import Text.Parsec.Char
 
 -- input
 
 type Ticket = Int
-type Input  = [Ticket]
+
+type Input = [Ticket]
 
 parseInput :: String -> Input
 parseInput = map readTicket . lines
-  where readTicket = fst . head . readInt 2 (const True) (fromEnum . (`elem` "BR"))
-
-
+  where
+    readTicket = fst . head . readInt 2 (const True) (fromEnum . (`elem` ("BR"::String)))
 
 -- solution
 
@@ -35,12 +33,11 @@ part1 = maximum
 
 part2 :: Input -> Int
 part2 = findSeat . sort
-  where findSeat (x:y:tickets)
-          | y - x == 2 = x + 1
-          | otherwise  = findSeat (y:tickets)
-        findSeat _ = error "missed my seat"
-
-
+  where
+    findSeat (x : y : tickets)
+      | y - x == 2 = x + 1
+      | otherwise = findSeat (y : tickets)
+    findSeat _ = error "missed my seat"
 
 -- main
 
