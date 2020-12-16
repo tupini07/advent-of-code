@@ -2,12 +2,16 @@ module Solutions.Day04 where
 
 import AOC
 import qualified Data.HashMap.Strict as M
+import Data.Maybe
+import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
 import Data.Void
+import Debug.Trace
 import Text.Megaparsec hiding (State)
 import qualified Text.Megaparsec as P
 import Text.Megaparsec.Char
+import Text.Read
 
 type Passport = M.HashMap Text Text
 
@@ -54,14 +58,97 @@ parseInput inpt = map getPassport splitted
 
 -- solution
 
+hasRequiredFields :: Passport -> Bool
+hasRequiredFields ppt = all (`M.member` ppt) expectedFields
+
 -- | How many passports are valid?
 part1 :: Input -> Int
-part1 psprts = countTrue $ map isPassportCorrect psprts
-  where
-    isPassportCorrect ppt = all (`M.member` ppt) expectedFields
+part1 passports = countTrue $ map hasRequiredFields passports
 
-part2 :: Input -> String
-part2 = undefined
+-- | Problem:
+-- - byr (Birth Year) - four digits; at least 1920 and at most 2002.
+-- - iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+-- - eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+-- - hgt (Height) - a number followed by either cm or in:
+--  - If cm, the number must be at least 150 and at most 193.
+--  - If in, the number must be at least 59 and at most 76.
+-- - hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+-- - ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+-- - pid (Passport ID) - a nine-digit number, including leading zeroes.
+-- - cid (Country ID) - ignored, missing or not.
+part2 :: Input -> Int
+part2 passports = countTrue $ map completeValidation passports
+  where
+    completeValidation :: Passport -> Bool
+    completeValidation p =
+      all
+        ($ p)
+        [ validateFields,
+          validateByr,
+          validateIyr,
+          validateEyr,
+          validateHgt,
+          validateHairColor,
+          validateEyeColor,
+          validatePid
+        ]
+
+    validateFields = hasRequiredFields
+    validateLength s l = T.length s == l
+    validateRange n lower upper = lower <= n && n <= upper
+    validateNumber n = isJust (readMaybe $ T.unpack n :: Maybe Int)
+    validateYear y lower upper = validateLength y 4 && validateNumber y && validateRange n lower upper
+      where
+        n = read $ T.unpack y
+
+    validateByr p = validateYear byr 1920 2020
+      where
+        byr = lookupStrInPassport p "byr"
+    validateIyr p = validateYear iyr 2010 2020
+      where
+        iyr = lookupStrInPassport p "iyr"
+    validateEyr p = validateYear eyr 2020 2030
+      where
+        eyr = lookupStrInPassport p "eyr"
+
+    validateHgt p = canParse hgt $ do
+      num <- P.many numberChar
+      unit <- string "in" <|> string "cm"
+
+      let rnum = read num :: Int
+
+      case unit of
+        "cm" ->
+          if validateRange rnum 150 193
+            then return True
+            else P.failure Nothing Set.empty
+        "in" ->
+          if validateRange rnum 59 76
+            then return True
+            else P.failure Nothing Set.empty
+        _ -> P.failure Nothing Set.empty
+      where
+        hgt = lookupStrInPassport p "hgt"
+
+    validateHairColor p = canParse hcl $ do
+      _ <- char '#'
+      P.many hexDigitChar
+      where
+        hcl = lookupStrInPassport p "hcl"
+    validateEyeColor p = ecl `elem` ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+      where
+        ecl = lookupStrInPassport p "ecl"
+    validatePid p = canParse pid (do P.count 9 numberChar)
+      where
+        pid = lookupStrInPassport p "pid"
+
+    lookupStrInPassport :: Passport -> Text -> Text
+    lookupStrInPassport p s = M.lookupDefault "" s p
+
+    canParse :: Show a => Text -> Parser a -> Bool
+    canParse t p = case parse p "" t of
+      Left _ -> False
+      Right _ -> True
 
 -- main
 
@@ -72,10 +159,13 @@ main rawData = do
       realInput = parseInput rawText
       partPrinter = printAocPart testInput realInput
 
+  let testTestInput = parseInput "hgt:59cm ecl:zzz\neyr:2038 hcl:74454a iyr:2023\npid:3556412378 byr:2007"
+  putStrLn $ show $ part2 testTestInput
+
   putStrLn ""
-  partPrinter 1 part1 "2"
-  -- partPrinter 2 part2 "1"
+  partPrinter 1 part1 "8"
+  partPrinter 2 part2 "4"
   putStrLn ""
 
 example :: Text
-example = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm\n\niyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\nhcl:#cfa07d byr:1929\n\nhcl:#ae17e1 iyr:2013\neyr:2024\necl:brn pid:760753108 byr:1931\nhgt:179cm\n\nhcl:#cfa07d eyr:2025 pid:166559648\niyr:2011 ecl:brn hgt:59in"
+example = "eyr:1972 cid:100\nhcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926\n\niyr:2019\nhcl:#602927 eyr:1967 hgt:170cm\necl:grn pid:012533040 byr:1946\n\nhcl:dab227 iyr:2012\necl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277\n\nhgt:59cm ecl:zzz\neyr:2038 hcl:74454a iyr:2023\npid:3556412378 byr:2007\n\npid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980\nhcl:#623a2f\n\neyr:2029 ecl:blu cid:129 byr:1989\niyr:2014 pid:896056539 hcl:#a97842 hgt:165cm\n\nhcl:#888785\nhgt:164cm byr:2001 iyr:2015 cid:88\npid:545766238 ecl:hzl\neyr:2022\n\niyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719"
