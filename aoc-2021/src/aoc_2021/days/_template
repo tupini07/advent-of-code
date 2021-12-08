@@ -1,0 +1,26 @@
+(ns aoc-2021.days.day2
+  (:require [aoc-2021.utils.data-utils :as data-utils]
+            [aoc-2021.data.test-data :as test-data]
+            [aoc-2021.utils.run-utils :as run-utils]))
+
+(defn- prepare-data [data]
+  (->> data
+       data-utils/split-newline
+       (map #(Integer/parseInt %))))
+
+(defn- solution-part-1
+  [data]
+  )
+
+(defn- solution-part-2
+  [data]
+  )
+
+(defn run []
+  (println "\n--- Day 2 Solution ---")
+  (run-utils/run-on-both
+   1
+   test-data/day1
+   prepare-data
+   solution-part-1
+   solution-part-2))

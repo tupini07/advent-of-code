@@ -38,7 +38,7 @@
     (build-sequences-of-n 3 data))))
 
 (defn run []
-  (println "\n--- Day 1 Solution [Part 1] ---")
+  (println "\n--- Day 1 Solution ---")
   (run-utils/run-on-both
    1
    test-data/day1
