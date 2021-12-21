@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.10"
+    id("com.diffplug.spotless") version "6.0.5"
     application
 }
 
@@ -26,4 +27,20 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+}
+
+afterEvaluate {
+    tasks.build.configure {
+        dependsOn("spotlessApply")
+    }
+}
+
+configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+    kotlin {
+        ktfmt()
+        ktlint()
+    }
+    kotlinGradle {
+        ktlint()
+    }
 }

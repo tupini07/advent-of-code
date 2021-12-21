@@ -2,25 +2,19 @@ package aoc.days.day4
 
 import aoc.days.BaseDay
 
-class Day4 : BaseDay<Day4Input>("4") {
+class Day4 : BaseDay<Day4Input>(4) {
 
     override fun prepareData(data: String): Day4Input {
-        var drawOrderStr = data.split("\n")
-            .first()
+        var drawOrderStr = data.split("\n").first()
 
-        var drawOrder = drawOrderStr
-            .split(",")
-            .map { Integer.parseInt(it) }
+        var drawOrder = drawOrderStr.split(",").map { Integer.parseInt(it) }
 
-        var boards = data.split(drawOrderStr + "\n")[1]
-            .split("\n\n")
-            .map { it.trim() }
-            .filter { it.isNotEmpty() }
+        var boards =
+            data.split(drawOrderStr + "\n")[1].split("\n\n").map { it.trim() }.filter {
+                it.isNotEmpty()
+            }
 
-        return Day4Input(
-            drawOrder,
-            boards.map { BingoBoard(it) }.toMutableList()
-        )
+        return Day4Input(drawOrder, boards.map { BingoBoard(it) }.toMutableList())
     }
 
     override fun part1(data: Day4Input): Number {

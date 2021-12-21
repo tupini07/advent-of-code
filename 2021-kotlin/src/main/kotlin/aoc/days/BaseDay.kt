@@ -4,13 +4,19 @@ import aoc.data.TestData
 import aoc.utils.DataUtils
 import kotlin.system.exitProcess
 
-open abstract class BaseDay<T>(val dayNumber: String) {
+abstract class BaseDay<T>(private val dayNumber: Number) {
     abstract fun prepareData(data: String): T
     abstract fun part1(data: T): Number
     abstract fun part2(data: T): Number
 
     private fun printTest(testNum: Number, expectedAnswer: Number, obtainedAnswer: Number) {
-        println("[TEST] Part $testNum: $obtainedAnswer " + (if (obtainedAnswer == expectedAnswer) "[PASSED]" else "[FAILED expected (${expectedAnswer})]"))
+        println(
+            "[TEST] Part $testNum: $obtainedAnswer " +
+                (
+                    if (obtainedAnswer == expectedAnswer) "[PASSED]"
+                    else "[FAILED expected ($expectedAnswer)]"
+                    )
+        )
         if (obtainedAnswer != expectedAnswer) {
             // fail process since test failed
             exitProcess(1)
@@ -22,7 +28,7 @@ open abstract class BaseDay<T>(val dayNumber: String) {
     }
 
     fun run() {
-        val dayData = DataUtils.getProblemInputForDat(this.dayNumber)
+        val dayData = DataUtils.getProblemInputForDay(this.dayNumber)
         val testData = TestData.getTestDataForDay(this.dayNumber)
 
         val preparedRealData = prepareData(dayData)
