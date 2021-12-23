@@ -9,7 +9,7 @@ class Day5 : BaseDay<Day5Input>(5) {
         data.split("\n").filter { it.isNotEmpty() }.map { instruction ->
             val (pos1, pos2) =
                 instruction.split(" -> ").map { singlePos ->
-                    val (x, y) = singlePos.split(",").map { Integer.parseInt(it) }
+                    val (x, y) = singlePos.split(",").map(Integer::parseInt)
 
                     Vector2d(x, y)
                 }
@@ -31,15 +31,11 @@ class Day5 : BaseDay<Day5Input>(5) {
 
     private fun countPositions(positions: List<Vector2d>): Map<Vector2d, Int> =
         positions.fold(mutableMapOf<Vector2d, Int>()) { acc, pos ->
-            if (!acc.contains(pos)) acc[pos] = 0
-
-            acc[pos] = acc[pos]!! + 1
+            acc[pos] = acc.getOrDefault(pos, 0) + 1
             acc
         }
 
     override fun part1(data: Day5Input): Number {
-        val visitedPositions: Map<Vector2d, Int> = mapOf()
-
         // only consider horizontal or vertical movements
         val validInstructions =
             data.filter {
@@ -60,8 +56,6 @@ class Day5 : BaseDay<Day5Input>(5) {
     }
 
     override fun part2(data: Day5Input): Number {
-        val visitedPositions: Map<Vector2d, Int> = mapOf()
-
         // same as part1 but we're considering every instruction
         val positionsVisited =
             data

@@ -11,12 +11,10 @@ class Vector2d(val x: Int, val y: Int) {
     override fun hashCode(): Int = this.x.hashCode() + this.y.hashCode()
 
     override fun equals(other: Any?): Boolean =
-        if (other is Vector2d) {
-            this.x == other.x && this.y == other.y
-        } else {
-            false
-        }
+        other is Vector2d && this.x == other.x && this.y == other.y
 
     fun sign(): Vector2d =
-        Vector2d(Math.signum(this.x.toFloat()).toInt(), Math.signum(this.y.toFloat()).toInt())
+        Vector2d(
+            kotlin.math.sign(this.x.toFloat()).toInt(), kotlin.math.sign(this.y.toFloat()).toInt()
+        )
 }

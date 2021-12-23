@@ -13,17 +13,17 @@ class BingoBoard(boardRep: String) {
     private var lastDrawnNumber = -1
 
     init {
-        /*
-        22 13 17 11  0
-         8  2 23  4 24
-        21  9 14 16  7
-         6 10  3 18  5
-         1 12 20 15 19
-        * */
+    /*
+    22 13 17 11  0
+     8  2 23  4 24
+    21  9 14 16  7
+     6 10  3 18  5
+     1 12 20 15 19
+    * */
 
         val rows =
             boardRep.split("\n").map { row ->
-                row.split(" ").map { it.trim() }.filter { it.isNotEmpty() }.map { Integer.parseInt(it) }
+                row.split(" ").map { it.trim() }.filter { it.isNotEmpty() }.map(Integer::parseInt)
             }
 
         // we assume the shape of the board is a square
@@ -33,8 +33,7 @@ class BingoBoard(boardRep: String) {
             generateSequence { false }.take(boardSize.toDouble().pow(2.0).toInt()).toMutableList()
     }
 
-    private fun cordsToLocalIndex(cords: Vector2d): Int =
-        cords.y * boardSize + cords.x.toInt()
+    private fun cordsToLocalIndex(cords: Vector2d): Int = cords.y * boardSize + cords.x.toInt()
 
     private fun localIndexToCords(idx: Int): Vector2d = Vector2d(idx % boardSize, idx / boardSize)
 
