@@ -28,12 +28,22 @@ defmodule Mix.Tasks.Day do
 
     input = AdventOfCode.Input.get!(day, 2022)
 
+    run_fn = fn ->
+      res = apply(aoc_module_name, part_function_name, [input])
+
+      if res == nil do
+        Mix.raise("Day #{day} part #{part_num} is not implemented")
+      end
+
+      res
+    end
+
     if requested_benchmark? do
       Benchee.run(%{
-        "#{part_function_name}" => fn -> apply(aoc_module_name, part_function_name, [input]) end
+        "#{part_function_name}" => run_fn
       })
     else
-      apply(aoc_module_name, part_function_name, [input])
+      run_fn.()
       |> IO.inspect(label: "Part #{part_num} Results")
     end
 
