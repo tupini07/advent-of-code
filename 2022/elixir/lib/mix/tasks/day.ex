@@ -1,9 +1,7 @@
 defmodule Mix.Tasks.Day do
   use Mix.Task
 
-  import AdventOfCode.Day01
-
-  @shortdoc "Run "
+  @shortdoc "Run a specific day and part"
   @spec run(Enum.t()) :: any
   def run(args) do
     requested_benchmark? = Enum.member?(args, "-b")
@@ -14,6 +12,11 @@ defmodule Mix.Tasks.Day do
     end
 
     [day, part_num] = args
+
+    if part_num != "1" and part_num != "2" do
+      Mix.raise("Part must be 1 or 2")
+    end
+
     part_function_name = String.to_atom("part#{part_num}")
 
     IO.puts("-------------------------------")
