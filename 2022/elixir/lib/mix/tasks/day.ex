@@ -21,7 +21,8 @@ defmodule Mix.Tasks.Day do
     IO.puts("Running day #{day} part ##{part_num}")
     IO.puts("-------------------------------\n")
 
-    run_fn = get_part_run_fn(day, part_num)
+    input = get_input_for_day(day)
+    run_fn = get_part_run_fn(day, part_num, input)
 
     if requested_benchmark? do
       Benchee.run(%{
@@ -37,16 +38,20 @@ defmodule Mix.Tasks.Day do
 
   @spec get_input_for_day(String.t(), String.t()) :: String.t()
   defp get_input_for_day(day, year \\ "2022") do
+    {day_num, _decimal} = Integer.parse(day)
+
+    if day_num < 1 or day_num > 25 do
+      Mix.raise("Day must be between 1 and 25")
+    end
+
     AdventOfCode.Input.get!(day, year)
   end
 
-  @spec get_part_run_fn(String.t(), String.t()) :: fun
-  defp get_part_run_fn(day, part_num) do
+  @spec get_part_run_fn(String.t(), String.t(), String.t()) :: fun
+  defp get_part_run_fn(day, part_num, input) do
     part_function_name = String.to_atom("part#{part_num}")
     padded_day = String.pad_leading(day, 2, "0")
     aoc_module_name = String.to_existing_atom("Elixir.AdventOfCode.Day#{padded_day}")
-
-    input = get_input_for_day(day)
 
     fn ->
       res = apply(aoc_module_name, part_function_name, [input])
