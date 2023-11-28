@@ -1,0 +1,19 @@
+{
+    "dev.containers.copyGitConfig": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/obj": true,
+        "**/bin": true
+    },
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "/usr/bin/zsh"
+        }
+    }
+}
