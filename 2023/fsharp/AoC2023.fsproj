@@ -1,17 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <PublishAot>true</PublishAot>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <Compile Include="src/components/HeaderComponent.fs" />
+    <Compile Include="src/pages/AboutPage.fs" />
+    <Compile Include="src/pages/HomePage.fs" />
+    <Compile Include="src/Program.fs" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Spectre.Console" Version="0.48.0" />
+    <PackageReference Include="Fable.Browser.Dom" Version="2.15.0" />
+    <PackageReference Include="Fable.Core" Version="4.2.0" />
+    <PackageReference Include="Fable.Elmish.React" Version="4.0.0" />
+    <PackageReference Include="Feliz" Version="2.7.0" />
+    <PackageReference Include="Feliz.Bulma" Version="3.0.0" />
+    <PackageReference Include="Feliz.Router" Version="4.0.0" />
   </ItemGroup>
-
 </Project>

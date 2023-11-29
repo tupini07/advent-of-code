@@ -14,7 +14,7 @@
             "extensions": [
                 "GitHub.copilot-nightly",
                 "Ionide.Ionide-fsharp",
-                "ms-semantic-kernel.semantic-kernel"
+                "EditorConfig.EditorConfig"
             ]
         }
     }

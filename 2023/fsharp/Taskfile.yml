@@ -1,0 +1,17 @@
+# https://taskfile.dev
+
+version: '3'
+
+
+tasks:
+  default:
+    - task --list-all
+
+  femto:
+    - dotnet femto --resolve
+
+  watch:
+    - dotnet fable watch --outDir dist --run npx vite
+
+  prod:
+    - dotnet fable --outDir dist --run npx vite build

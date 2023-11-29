@@ -1,0 +1,88 @@
+@import "../node_modules/bulma/css/bulma.min.css";
+
+body {
+    background: #0f0f23;
+    color: #cccccc;
+    font-family: "Source Code Pro", monospace;
+    font-weight: 300;
+    font-size: 14pt;
+    width: 100vw; 
+    height: 100vh; 
+}
+
+body {
+    display: block;
+    padding: 8px;
+}
+
+header {
+    white-space: nowrap;
+    cursor: default;
+    z-index: 100;
+    margin-bottom: 1.2em;
+}
+
+header h1 {
+    display: inline-block;
+    margin: 0;
+    padding-right: 1em;
+}
+
+h1, h2 {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+header nav {
+    display: inline-block;
+}
+
+header h1 {
+    display: inline-block;
+    margin: 0;
+    padding-right: 1em;
+}
+
+header h1 a, header h1 span {
+    display: inline-block;
+    text-decoration: none;
+    color: #00cc00;
+    text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+
+a {
+    text-decoration: none;
+    color: #009900;
+    outline: 0;
+}
+
+a:hover, a:focus {
+    color: #99ff99;
+}
+
+header nav {
+    display: inline-block;
+}
+
+header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+
+header nav li {
+    display: inline-block;
+    padding: 0 .6em;
+}
+
+main, figure, figcaption {
+    display: block;
+}
+
+hr {
+    border: none;
+    border-top: 1px dashed #ccc;
+    background-color: #000000FF;
+    margin: 1rem 0;
+}
